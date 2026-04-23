@@ -3,15 +3,18 @@
 {% block content %}
     
 {% for palco in palcos %}
-<h3>{{palco}}</h3>
+    <h2 style="color: #ff4da6; margin-top: 30px;">{{ palco.nome }}</h2>
 
     {% for concerto in palco.concertos.all %}
-        <article class="card">
-            <a href="">{{ concerto.banda.nome }} - {{ concerto.dia }}, {{ concerto.hora }}</a>
+        <article class="card" style="background-color: #1a1a1a; padding: 10px; margin-bottom: 5px; border-left: 4px solid #ff4da6;">
+            <a href="{% url 'concerto' concerto.id %}" style="color: white; text-decoration: none;">
+                <strong>{{ concerto.banda.nome }}</strong> - {{ concerto.dia.data|date:"d/m" }}, {{ concerto.hora|time:"H:i" }}
+            </a>
         </article>
+    {% empty %}
+        <p>Sem concertos agendados para este palco.</p>
     {% endfor %}
 
 {% endfor %}
 
 {% endblock %}
-    
