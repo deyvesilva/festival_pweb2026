@@ -1,17 +1,21 @@
-# festival
+# 🎸 Projeto Festival 
 
-# Resumo das Alterações
- # # Sincronização de Rotas:
- Ajustei o ficheiro urls.py para que os nomes dos links (como 'dias' e 'palcos') correspondessem exatamente ao que estava escrito nos botões do menu.
+### 🔗 Sincronização de Rotas (`urls.py`)
+* **O problema:** Havia uma falha na correspondência entre os nomes das rotas e os links definidos no menu (`layout.html`), causando erros de navegação.
+* **A solução:** Ajustei os caminhos e os atributos `name` (ex: `'dias'`, `'palcos'`, `'dia'`) para que o sistema de roteamento do Django consiga resolver corretamente os pedidos.
 
-# # Ligação Views-Modelos: 
-Corrigi as funções no views.py para que elas fossem procurar a informação correta à base de dados. Antes, algumas views tentavam mostrar tudo de uma vez ou não encontravam o ID do concerto selecionado.
+### ⚙️ Ligação Views-Modelos (`views.py`)
+* **O problema:** As funções de visualização estavam incompletas ou não filtravam os dados corretamente, o que impedia a exibição de informação específica por dia ou concerto.
+* **A solução:** Corrigi as consultas (queries) à base de dados. As views agora utilizam os IDs passados pela URL para ir buscar exatamente o que o utilizador selecionou, garantindo que a página de detalhe mostre a banda correta.
 
- # # Criação de Templates:
-Como o projeto estava incompleto, criei o ficheiro HTML que faltava (dias.html) para que o site deixasse de dar erro de "página não encontrada".
+### 📄 Criação de Templates
+* **O problema:** O projeto estava incompleto, apresentando erros de *TemplateDoesNotExist*.
+* **A solução:** Implementei o ficheiro **`dias.html`**. Este ficheiro é o núcleo da aplicação, pois faz a ponte entre as datas do festival e a programação de bandas.
 
-# # Exibição de Conteúdo:
-No ecrã dos dias, adicionei um ciclo para que, por baixo de cada data, apareça a lista real de concertos e bandas, em vez de apenas a data isolada.
+### 📊 Exibição Dinâmica de Conteúdo
+* **O problema:** A página de listagem era estática e não mostrava a relação entre os dias e os concertos.
+* **A solução:** Utilizei um **ciclo aninhado (nested loop)** no template `dias.html`. Agora, para cada dia registado, o sistema lista automaticamente os concertos e os palcos associados, tornando a interface informativa e funcional.
 
-# # Navegação Dinâmica: 
-Garanti que, ao clicar num dia ou num palco, o Django saiba exatamente que concertos mostrar, passando o ID correto entre as páginas.
+### 🚀 Navegação Dinâmica
+* **O problema:** Os links estavam "partidos" ou levavam a páginas genéricas.
+* **A solução:** Implementei a tag `{% url %}` com a passagem dinâmica de parâmetros. Isto permite que a navegação seja fluida: ao clicar num dia ou num concerto, o Django encaminha o utilizador para a página correta com os dados filtrados.
