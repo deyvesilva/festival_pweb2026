@@ -1,0 +1,19 @@
+{% extends 'festival/layout.html' %}
+
+{% block content %}
+    {% for dia in dias %}
+        <h3 style="color: #ff4da6; margin-top: 30px;">{{ dia.data|date:"Y-m-d" }}</h3>
+        
+        <ul style="list-style: none; padding-left: 0;">
+            {% for concerto in dia.concertos.all %}
+                <li style="background-color: #1a1a1a; color: white; margin-bottom: 5px; padding: 10px; border-left: 4px solid #ff4da6;">
+                    <a href="{% url 'concerto' concerto.id %}" style="color: white; text-decoration: none;">
+                        {{ concerto.banda.nome }} - {{ concerto.palco.nome }}
+                    </a>
+                </li>
+            {% empty %}
+                <li style="color: #666;">Sem concertos para este dia.</li>
+            {% endfor %}
+        </ul>
+    {% endfor %}
+{% endblock %}
